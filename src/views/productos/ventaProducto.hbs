@@ -65,12 +65,21 @@
 				</div>
 			</div>
 		{{else}}
-			<div class="card mx-auto fondo-claro">
-				<div class="card-body">
-					<p>Usted no ha ingresado productos.</p>
-					<a class="btn btn-success btn-block" href="/formAgregarProductos">Ingresar</a>
+			{{#if errors}}
+				<div class="card mx-auto fondo-claro">
+					<div class="card-body">
+						<p>Ha ocurrido algún error intente volver a agregar productos.</p>
+						<a class="btn btn-success btn-block" href="/ventaProducto">Agregar</a>
+					</div>
 				</div>
-			</div>
+			{{else}}
+				<div class="card mx-auto fondo-claro">
+					<div class="card-body">
+						<p>Usted no ha ingresado productos.</p>
+						<a class="btn btn-success btn-block" href="/formAgregarProductos">Ingresar</a>
+					</div>
+				</div>
+			{{/if}}
 		{{/if}}
 		</div>
 	
