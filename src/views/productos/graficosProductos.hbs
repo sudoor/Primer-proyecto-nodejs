@@ -1,0 +1,70 @@
+
+<!-- Scripts para las graficas -->
+<script type="text/javascript" src="/js/Chart.min.js"></script>
+
+
+<!-- Graficos de los productos -->
+<main role="main">
+<!-- Verificar si existen productos -->
+{{#if ProductosTodos}}
+	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+       <h1 class="h2">Cantidad</h1>
+       <div class="btn-toolbar mb-2 mb-md-0">
+         <div class="btn-group mr-2">
+           <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+           <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+         </div>
+         <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+           <span data-feather="calendar"></span>
+           This week
+         </button>
+       </div>
+     </div>
+     <!-- Graflca de cantidad de productos -->
+    <div class="fondo-claro p-1">
+		<canvas class="my-4 w-100" id="myChartProductos" width="900" height="380"></canvas>
+	</div>
+	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+       <h1 class="h2">Precio compra y venta</h1>
+       <div class="btn-toolbar mb-2 mb-md-0">
+         <div class="btn-group mr-2">
+           <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+           <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+         </div>
+         <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+           <span data-feather="calendar"></span>
+           This week
+         </button>
+       </div>
+    </div>
+        <!-- Graflca de precio de compra y venta -->
+    <div class="fondo-claro p-1">
+		<canvas class="my-4 w-100 fondo-claro" id="myChartPrecios" width="900" height="380"></canvas>
+	</div>
+	{{else}}
+	<!-- En caso de no haber agregado ningun producto -->
+	<div class="card mx-auto">
+		<div class="card-body">
+			<p>Usted no ha ingresado ningún producto.</p>
+			<a class="btn btn-success btn-block" href="/productos/agregar">Ingresar</a>
+		</div>
+	</div>
+	{{/if}}
+</main>
+
+<script type="text/javascript" src="/js/dashboard.js"></script>
+<script type="text/javascript">
+	{{#if ProductosTodos}}
+		const datosGrafica = [];
+		{{#each ProductosTodos}}
+			datosGrafica.push({
+				nombre: '{{nombre}}',
+				cantidad: '{{cantidad}}',
+				precioCompra: '{{precioCompra}}',
+				precioVenta: '{{precioVenta}}'
+			});
+		{{/each}}
+		crearGraficasPC(...datosGrafica); // Productos cantidad
+		crearGraficasPCV(...datosGrafica); // Precio de compra y venta de productos
+	{{/if}}
+</script>

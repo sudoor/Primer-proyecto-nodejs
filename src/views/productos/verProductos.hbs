@@ -1,0 +1,114 @@
+
+<h2 class="h2">Productos</h2>
+<hr>
+<div class="container mb-3">
+
+		<div class="row">
+			<div class="col-md-6 mt-2">
+				<form class="form-inline">
+					<div class="input-group input-group-navbar">
+						<input autofocus="" id="inputOnWriteProducto" type="text" class="form-control" placeholder="Buscar…" aria-label="Search">
+						<div class="input-group-append">
+							<button class="btn btn-primary" onclick="fTeclaProductos()" type="button">
+			        	     	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search align-middle"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+			        	    </button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-6 mr-auto mt-2">
+    			    <div class="btn-toolbar mb-md-2">
+    			      <div class="btn-group mr-auto mr-2">
+
+    			      		
+    			      </div>
+    			      <a href="/productos/cuadro" type="submit" class="btn btn-sm btn-outline-secondary">Iconos</a>
+    			      <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+    			      <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+    			        <span data-feather="calendar"></span>
+    			        This week
+    			      </button>
+    			    </div>
+			</div>
+		</div>
+
+</div>
+
+
+<main role="main">
+
+
+	{{#if ProductoSend}}
+
+
+	<div class="container-fluid">
+  		<div class="row">
+			<div class="table-responsive">	
+				<table id="tablaVerProductos" class="tablaProductos fondo-claro table table-striped table-sm">
+					<thead>
+					
+						<td></td>
+						<td><b>Producto</b></td>
+						<td><b>Cantidad</b></td>
+						<td><b>tipo</b></td>
+						<td><b>Compra</b></td>
+						<td><b>Venta</b></td>
+						<td><b>Descripción</b></td>
+						<td></td>
+
+					</thead>
+					<tbody>	
+					{{#each ProductoSend}}
+						<tr>
+							<td>
+								<a class="mr-3" href="/productos/editar/{{id}}"><span data-feather="edit"></span></a>
+							</td>
+							<td>{{nombre}}</td>
+							<td>{{cantidad}}</td>
+							<td>{{tipo}}</td>
+							<td>{{precioCompra}}</td>
+							<td>{{precioVenta}}</td>
+							<td>{{descripcion}}</td>
+							<td>
+								<form action="/productos/borrar/{{id}}?_method=DELETE" method="POST" style="display: inline-block;">
+									<input type="hidden" name="_method" value="DELETE">
+									<button class="btn-danger" type="submit"><span data-feather="trash-2"></span></button>
+								</form>
+							</td>
+						</tr>
+					{{/each}}				
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	{{else}}
+		{{#if ProductoSend2}}
+		<div class="container">
+			<div class="card fondo">
+				<div class="card-body">
+					<div class="row mt-3 mx-auto">
+						{{#each ProductoSend2}}
+						<div class="fondo-claro p-4 mt-2 m-1 mx-auto text-center">
+							<img class="img-fluid pr-2 rounded-circle" src="/img/img2.jpg" alt="imagen">
+							<h5 class="h4 lh-130 mb-3">{{nombre}}</h5>
+							<p class="mb-0">{{cantidad}} {{tipo}}<br>
+							{{precioCompra}} - {{precioVenta}}</p>
+						</div>
+						{{/each}}
+					</div>
+				</div>
+			</div>
+		{{else}}
+			<div class="card mx-auto fondo-claro">
+				<div class="card-body">
+					<p>Usted no ha ingresado productos.</p>
+					<a class="btn btn-success btn-block" href="/formAgregarProductos">Ingresar</a>
+				</div>
+			</div>
+		{{/if}}
+		</div>
+	{{/if}}
+	
+
+</main>

@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg navbar-dark fondo mb-0">
+	<div class="container-xl">
+  		<a href="/" class="navbar-brand"><b>Sudoor  v1.0</b></a>
+  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Togglenavigation">
+			<span>
+                	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings align-middle"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+  			<ul class="navbar-nav ml-auto">
+  			<!-- Verifica si hay algun usuario logueado para definir que informacion mostrar -->
+    		{{#if userName}}
+    			<li class="nav-item active ml-1">
+		         {{#if userName.dollarBalanceV}}
+		          <a class="nav-link" href="/dolar"><span data-feather="dollar-sign"></span> {{userName.dollarBalanceV}}</a>
+		        {{/if}}
+		        </li>
+    			<li class="nav-item active ml-1">
+		          <a class="nav-link" href="/users/logout"><span data-feather="credit-card"></span> {{userName.moneyV}} Bs</a>
+		        </li>
+    			<li class="nav-item active ml-1">
+		          <a class="nav-link" href="/users/logout"><span data-feather="user"></span> Perfil</a>
+		        </li>
+		        <li class="nav-item ml-1">
+		          <a class="nav-link active" href="/users/logout"><span data-feather="log-in"></span> Salir</a>
+		       </li>
+		      {{else}}
+		        <li class="nav-item active">
+		          <a class="nav-link" href="/users/signin">Iniciar Sesión</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link" href="/users/signup">Crear cuenta</a>
+		       </li>
+
+		      {{/if}}
+		     <!-- Termina de verificar -->
+		    </ul>
+		  </div>
+	</div>
+</nav>

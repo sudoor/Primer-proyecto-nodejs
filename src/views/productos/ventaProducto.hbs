@@ -1,0 +1,80 @@
+
+<h2><span class="h2" data-feather="shopping-bag"></span> Seleccionar Productos a Vender</h2>
+<hr>
+<div class="container mb-3">
+
+		<div class="row">
+			<div class="col-md-6 mt-2">
+				<form class="form-inline">
+					<div class="input-group input-group-navbar">
+						<input autofocus="" id="inputOnWriteProducto" type="text" class="form-control" placeholder="Buscar…" aria-label="Search">
+						<div class="input-group-append">
+							<button class="btn btn-primary" onclick="fTeclaProductos()" type="button">
+			        	     	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search align-middle"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+			        	    </button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-6 mr-auto mt-2">
+    			    <div class="btn-toolbar mb-md-2">
+    			      <div class="btn-group mr-auto mr-2">
+
+    			      		
+    			      </div>
+    			      <a href="/productos/cuadro" type="submit" class="btn btn-sm btn-outline-secondary">Iconos</a>
+    			      <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+    			      <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+    			        <span data-feather="calendar"></span>
+    			        This week
+    			      </button>
+    			    </div>
+			</div>
+		</div>
+
+</div>
+
+
+<main role="main">
+
+		{{#if ProductosVender}}
+		<div class="container">
+			<div class="card fondo">
+				<div class="card-body">
+					<div class="row mt-3">
+						{{#each ProductosVender}}
+						<div class="fondo-claro p-4 mt-2 m-1 text-center mx-auto" style="border-radius: 10%;">
+							<form action="/AgregarACarrito" method="POST">
+								<img class="img-fluid pr-2 rounded-circle" src="/img/productos/{{nombre}}.jpg" width="200" height="200" alt="imagen">
+								<h5 class="h4 lh-130 mb-3">{{nombre}}</h5>
+								<p class="mb-0"><b class="text-primary">{{cantidad}} {{tipo}}</b><br>
+								<b>{{precioVenta}}</b> - {{precioDollar}}$</p>
+								<hr>
+								<input class="form-control" placeholder="Cantidad {{#if decimales}}en Kg" id="inputOnWriteNumero3"{{else}}en Unidad{{/if}}" type="text" name="cantidad"><br><input id="inputOnWriteNumero3" class="form-control" placeholder="Monto a Vender" type="text" name="monto">
+								<hr>
+								<div class="form-group">
+									<input type="hidden" name="idProducto" value="{{id}}">
+									<button class="btn btn-success">
+										Agregar
+									</button>
+								</div>
+							</form>
+						</div>
+						{{/each}}
+					</div>
+				</div>
+			</div>
+		{{else}}
+			<div class="card mx-auto fondo-claro">
+				<div class="card-body">
+					<p>Usted no ha ingresado productos.</p>
+					<a class="btn btn-success btn-block" href="/formAgregarProductos">Ingresar</a>
+				</div>
+			</div>
+		{{/if}}
+		</div>
+	
+
+</main>
+
+<script type="text/javascript" src="/js/peticionesAjax.js"></script>

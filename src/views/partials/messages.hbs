@@ -1,0 +1,15 @@
+<!-- Son todos los archivos que handdlebars puede compartir -->
+{{#if success_msg}} <!-- Como no es un arreglo entonces se coloca el if, debido a que es una variable -->
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+		{{success_msg}}
+	</div>
+{{/if}}
+
+{{#if error_msg}}
+<!-- Se puede usar el if en vez de el each si solo es una variable -->
+
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+	{{error_msg}}
+</div>
+
+{{/if}}

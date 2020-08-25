@@ -1,0 +1,33 @@
+<!-- Editar productos. Se llenan los campos automaticamente con los datos originales -->
+<div class="col-md-6 mx-auto">
+	<div class="card">
+		<div class="card-header fondo-claro">
+			<h3>Editar Producto</h3>
+		</div>
+		<div class="card-body">
+			<form action="/productos/editarProducto/{{EditarProducto.id}}?_method=PUT" method="POST"><!-- ENVIAR LA PETICION PUT -->
+				<input type="hidden" name="_method" value="PUT">
+				<div class="form-group">
+					<input type="text" class="form-control" name="nombre" placeholder="nombre" value="{{EditarProducto.nombre}}">
+				</div>
+				<div class="form-group">
+					<input id="inputOnWriteNumero" type="text" class="form-control" name="cantidad" placeholder="cantidad" value="{{EditarProducto.cantidad}}">
+				</div>
+				<div class="form-group">
+					<input id="inputOnWriteNumero" type="text" class="form-control" name="precioCompra" placeholder="precio de Compra" value="{{EditarProducto.precioCompra}}">
+				</div>
+				<div class="form-group">
+					<input id="inputOnWriteNumero" type="text" class="form-control" name="precioVenta" placeholder="precio de Venta" value="{{EditarProducto.precioVenta}}">
+				</div>
+				<div class="form-group">
+					<textarea name="descripcion" class="form-control">{{EditarProducto.descripcion}}</textarea>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-primary btn-block" type="submit">
+						Actualizar
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

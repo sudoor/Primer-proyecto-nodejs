@@ -1,0 +1,125 @@
+<!--
+
+<nav id="navbarNav" class="col-md-3 col-lg-2 d-md-block fondo-claro sidebar collapse mb-3" style="margin: 0;">
+      <div class="sidebar-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link fondo-claro" href="/inicio">
+              <span data-feather="home"></span>
+              Inicio<span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fondo-claro" href="/Productos">
+              <span data-feather="box"></span>
+              Productos<span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fondo-claro" href="/productos/graficosProductos">
+              <span data-feather="bar-chart-2"></span>
+              Gráficos
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fondo-claro" href="/ingresos">
+              <span data-feather="corner-right-up"></span>
+              Ingresos
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fondo-claro" href="/egresos">
+              <span data-feather="corner-left-down"></span>
+              Egresos
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fondo-claro" href="/dolar">
+              <span data-feather="dollar-sign"></span>
+              Dólar
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fondo-claro" href="#">
+              <span data-feather="users"></span>
+              Usuarios
+            </a>
+          </li>
+        </ul>
+        <hr/>
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <a class="nav-link" href="/productos/agregar"aria-label="Add a new report">
+              <span>Agregar Producto</span>
+              <span data-feather="plus-circle"></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fondo-claro" href="/productos/ventaProducto">
+              <span data-feather="shopping-cart"></span>
+              Venta
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fondo-claro" href="#">
+              <span data-feather="truck"></span>
+              Compra
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fondo-claro" href="/productos/dolares">
+              <span data-feather="dollar-sign"></span>
+              Capital
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fondo-claro" href="#">
+              <span data-feather="file-text"></span>
+              Year-end sale
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+    </nav>
+-->
+<nav class="navbar navbar-expand-lg navbar-dark rounded">
+    <a class="navbar-brand" href="/inicio"><span data-feather="home"></span> Inicio</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">Menú
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExample09">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span data-feather="package"></span> Productos</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown09">
+            <a class="dropdown-item" href="/productos"><span data-feather="box"></span> Inventario</a>
+            <a class="dropdown-item" href="/formAgregarProductos"><span data-feather="truck"></span> Comprar</a>
+          </div>
+        </li>
+        <li class="nav-item active dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span data-feather="shopping-cart"></span> Vender</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown09">
+            <a class="dropdown-item" href="/ventaProducto"><span data-feather="shopping-bag"></span> Agregar</a>
+            <a class="dropdown-item" href="/carrito"><span data-feather="shopping-cart"></span> Carrito</a>
+          </div>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/graficosProductos"><span data-feather="bar-chart-2"></span> Graficos</a>
+        </li>
+        <li class="nav-item active dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span data-feather="credit-card"></span> Capital</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown09">
+            <a class="dropdown-item" href="/ingresos"><span data-feather="corner-right-up"></span> Ingresos</a>
+            <a class="dropdown-item" href="/egresos"><span data-feather="corner-left-down"></span> Egresos</a>
+            <a class="dropdown-item" href="/dolar"><span data-feather="dollar-sign"></span> Dólar</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"><span data-feather="users"></span> Usuarios</a>
+        </li>
+      </ul>
+      <p id="conteo"></p>
+    </div>
+  </nav>

@@ -1,0 +1,17 @@
+<!-- Mensajes de errorres -->
+{{#if error}}
+
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+	{{error}}
+</div>
+
+{{/if}}
+
+{{#each errors}}
+<!-- Se puede usar el if en vez de el each  si es una variavle-->
+
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+	{{text}}
+</div>
+
+{{/each}}

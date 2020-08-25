@@ -1,0 +1,4 @@
+css ui gradient, pagina que da colores cambiantes
+bootwatch es bootstrap pero con diferentes colores
+
+usar handlebars con routes, con dos botones distintos para ver los productos
