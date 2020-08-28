@@ -14,7 +14,7 @@ router.get('/', (req,res) => {
 
 router.get('/inicio', isAuthenticated, async (req,res) => {
 	if (req.user.dollar) {
-		var inicioInfo = {
+		var inicioInfo = { // Información de inicio rápida
 			dollarBalance: numeroVisual.aplicar((Number(req.user.money) / Number(req.user.dollar)).toFixed(4)),
 			dollar: numeroVisual.aplicar(Number(req.user.dollar).toFixed(2))
 		};
@@ -22,9 +22,9 @@ router.get('/inicio', isAuthenticated, async (req,res) => {
 	const Dolares = await Dollar.find({user: req.user.id}).sort({date:'desc'}).limit(10);
 	var dollarInfo = [];
 	Dolares.forEach( Dolares=>{ // recorrer el array de una forma mas ordenada
-		var fecha = Dolares.date+"";
+		var fecha = Dolares.date+"";// Fecha que se mostrará en la gráfica
 		var arrayFecha = fecha.split(" ");
-		dollarInfo.push({
+		dollarInfo.push({ //Datos para la grafica
 			monto: Number(Dolares.monto).toFixed(2),
 			date: arrayFecha[1]+"-"+arrayFecha[2],
 			id: Dolares.id
@@ -37,15 +37,16 @@ router.get('/inicio', isAuthenticated, async (req,res) => {
 // -------------------------------- ACOMODAR MONTO CON AJAX -------------------------------------
 
 router.get('/sugaar/ajaxNumeroInput/:buscar/:tecla/:decimales', isAuthenticated, (req,res) => {
-	var teclasPermitidas = [8,37,38,39,40,96,97,98,99,100,101,102,103,104,105,229];
-	var teclasDenegadas = [32,111];
-	const texto= req.params.buscar;
-	const tecla = req.params.tecla;
-	const verificarDecimales = req.params.decimales;
-
+	var teclasPermitidas = [8,37,38,39,40,96,97,98,99,100,101,102,103,104,105,229]; // teclas que no son numeros pero estan permitidas 
+	var teclasDenegadas = [32,111]; // Teclas que js toma como números pero causan error en el codigo
+	const texto= req.params.buscar; // monto recibido sin editar
+	const tecla = req.params.tecla; // tecla presionada
+	const verificarDecimales = req.params.decimales; // decimales que tendrá el input
+	// verificar si la tecla presionada está entre las permitidas y denegadas
 	var teclasPermitidas = teclasPermitidas.find(buscando => buscando==tecla);
 	var teclasDenegadas = teclasDenegadas.find(buscando => buscando==tecla);
-	if (isNaN(String.fromCharCode(tecla))==true && teclasPermitidas==undefined || teclasDenegadas!=undefined) {
+	//Comprueba de que sea un numero la tecla
+	if (isNaN(String.fromCharCode(tecla))==true && (teclasPermitidas==undefined || teclasDenegadas!=undefined)) {
 		var respuesta="letra";
 		res.json({respuesta});	
 	}
@@ -57,11 +58,11 @@ router.get('/sugaar/ajaxNumeroInput/:buscar/:tecla/:decimales', isAuthenticated,
 		if (verificarDecimales==2) {
 			var respuesta = numeroVisual.verificar(texto);
 		}
-		if (isNaN(respuesta)) {
+		if (isNaN(respuesta)) { // si el monto no es un número
 			var respuesta="letra";
 			res.json({respuesta});	
 		}
-		else{
+		else{ // envial el monto de respuesta decorado para ser recibido
 			respuesta = numeroVisual.aplicar(respuesta);
 			res.json({respuesta});
 		}

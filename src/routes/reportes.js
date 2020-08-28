@@ -6,22 +6,22 @@ const User = require('../models/user.js'); // Modelo de usuarios
 const numeroVisual = require('../helpers/funciones'); // colocar los puntos en los miles de los numeros altos
 const { isAuthenticated } = require('../helpers/auth');
 const Dollar = require('../models/Dollar.js'); // registro del precio del dollar
-const conteo = require('../index.js');
+const conteo = require('../index.js'); // registro de la actualizacion de la fecha
 
 
 //---------------------- DOLARES ---------------------------
 
 router.get('/dolar', isAuthenticated, async (req,res) => { // isAuthenticated verifica si esta logueado para seguir con la funcion
 	const Dolares = await Dollar.find({user: req.user.id}).sort({date:'desc'});
-	var dollarInfo =[];
+	var dollarInfo =[]; // Array donde se guardara la información del dolar
 	Dolares.forEach( Dolares=>{ // recorrer el array de una forma mas ordenada
-		var fecha = Dolares.date+"";
-		var arrayFecha = fecha.split(" ");
+		var fecha = Dolares.date+""; // Buscar fecha del dolar
+		var arrayFecha = fecha.split(" ");// Separar los datos de la fecha
 		dollarInfo.push({
-			monto: numeroVisual.aplicar(Number(Dolares.monto).toFixed(2)),
-			date: arrayFecha[0]+" "+arrayFecha[1]+"-"+arrayFecha[2]+"-"+arrayFecha[3],
-			montoGrafica: Number(Dolares.monto).toFixed(2),
-			dateGrafica: arrayFecha[1]+"-"+arrayFecha[2],
+			monto: numeroVisual.aplicar(Number(Dolares.monto).toFixed(2)), //convertir tu enemigo en tu hermo
+			date: arrayFecha[0]+" "+arrayFecha[1]+"-"+arrayFecha[2]+"-"+arrayFecha[3], //ordenar fecha para grafica
+			montoGrafica: Number(Dolares.monto).toFixed(2), // monto a mostrar en grafica
+			dateGrafica: arrayFecha[1]+"-"+arrayFecha[2], // fecha a mostrar en grafica
 			id: Dolares.id
 		})
 	});
@@ -31,9 +31,9 @@ router.get('/dolar', isAuthenticated, async (req,res) => { // isAuthenticated ve
 //----------------------- EDITAR DOLLAR -------------------------------------
 
 router.post('/dolar/editarDollar/:id', isAuthenticated, async (req,res) => { // :id es el dato que está recibiendo por put
-	var dollarN = "" + req.body.dollar;
-	dollarN = numeroVisual.quitar(dollarN);
-	var separarDecimales = dollarN.split(".");
+	var dollarN = "" + req.body.dollar; // guarda como string el valor del dolar
+	dollarN = numeroVisual.quitar(dollarN); // lo convierte a entero
+	var separarDecimales = dollarN.split("."); // para verificar posteriormente cuantos decimales hay
 	var errors = [];
 	if (isNaN(dollarN)) {
 		errors.push({text: 'El monto ingresado no es un número'});
@@ -46,12 +46,12 @@ router.post('/dolar/editarDollar/:id', isAuthenticated, async (req,res) => { // 
 		}
 	}
 	if (errors.length>0) {
-		const Dolares = await Dollar.find({user: req.user.id}).sort({date:'desc'});
+		const Dolares = await Dollar.find({user: req.user.id}).sort({date:'desc'}); // Buscar lista de los precios del dolar
 		var dollarInfo=[];
 		Dolares.forEach( Dolares=>{ // recorrer el array de una forma mas ordenada
 			var fecha = Dolares.date+"";
-			var arrayFecha = fecha.split(" ");
-			dollarInfo.push({
+			var arrayFecha = fecha.split(" "); // Separa la fecha de la hora y zona horaria
+			dollarInfo.push({ // Se ingresan los datos a mostrar
 				monto: numeroVisual.aplicar(Number(Dolares.monto).toFixed(2)),
 				date: arrayFecha[0]+" "+arrayFecha[1]+"-"+arrayFecha[2]+"-"+arrayFecha[3],
 				montoGrafica: Number(Dolares.monto).toFixed(2),
@@ -77,8 +77,8 @@ router.post('/dolar/editarDollar/:id', isAuthenticated, async (req,res) => { // 
 
 router.delete('/dolar/borrarDollar/:id', isAuthenticated, async(req, res) => { // metodo delete
 	await Dollar.findByIdAndDelete(req.params.id); //eliminar
-	if (numeroVisual.aplicar(Number(req.user.dollar).toFixed(2))==req.body.monto) {
-		await User.findByIdAndUpdate(req.user.id, { dollar: 0 }); // codigo para actualizar en mongodb
+	if (numeroVisual.aplicar(Number(req.user.dollar).toFixed(2))==req.body.monto) { // si se elimina el ultimo precio fija el dolar a 0
+		await User.findByIdAndUpdate(req.user.id, { dollar: 0 });
 	}
 	req.flash('success_msg','Registro eliminado sastifactoriamente');
 	res.redirect('/dolar');
@@ -88,13 +88,12 @@ router.delete('/dolar/borrarDollar/:id', isAuthenticated, async(req, res) => { /
 
 //---------------------- Página de ingresos ---------------------------
 
-router.get('/ingresos', isAuthenticated, async (req,res) => { // isAuthenticated verifica si esta logueado
-	const Ingresos = await Ingreso.find({user: req.user.id}).sort({ date: 'desc' });//ordenar de forma descendente
-	//el req.user.id es para buscar los productos del usuario logueado
+router.get('/ingresos', isAuthenticated, async (req,res) => { // pagina para mostrar los ingresos
+	const Ingresos = await Ingreso.find({user: req.user.id}).sort({ date: 'desc' }); // Buscar los ingresos
 	var IngresoSend = [];
 	Ingresos.forEach( Ingresos=>{ // recorrer el array de una forma mas ordenada
 		var fecha = Ingresos.date+"";
-		var arrayFecha = fecha.split(" ");
+		var arrayFecha = fecha.split(" ");// Separa la fecha en un array
 		IngresoSend.push({
 			descripcion: Ingresos.descripcion,
 			monto: numeroVisual.aplicar(Ingresos.monto),
@@ -106,9 +105,7 @@ router.get('/ingresos', isAuthenticated, async (req,res) => { // isAuthenticated
 	});
 	res.render('reportes/ingresos', { IngresoSend }); // le pasa todos los datos, nodes entre corchetes es como un get
 }); // cuando visiten la página enviar el mensaje
-
 // Agregar ingreso
-
 router.post('/ingresos/agregar/:id', isAuthenticated, async (req,res) => { // :id es el dato que está recibiendo
 	const formulario = req.body;
 	const errors = [] // Array que va a guardar los errores
@@ -127,7 +124,7 @@ router.post('/ingresos/agregar/:id', isAuthenticated, async (req,res) => { // :i
 	}
 	else{
 		const Usuario = await User.findById(req.params.id); // codigo para buscar en mongodb
-		await User.findByIdAndUpdate(req.params.id, { money: Number(formulario.money) + Number(Usuario.money) }); // actualizar en mongodb
+		await User.findByIdAndUpdate(req.params.id, { money: Number(formulario.money) + Number(Usuario.money) }); // actualiza el dinero
 		const NuevoIngreso = Ingreso({ // Crea el ingreso con los datos recibidos
 			descripcion: formulario.descripcion,
 			monto: Number(formulario.money),
@@ -138,14 +135,9 @@ router.post('/ingresos/agregar/:id', isAuthenticated, async (req,res) => { // :i
 		req.flash('success_msg','Has agregado ',formulario.money,' Bs sastifactoriamente a tu capital');
 		res.redirect('/ingresos');
 	}
-
-}); // cuando visiten la página enviar el mensaje
-
-
+});
 //-------------------------------------------- EGRESOS ----------------------------------------------------
-
-//---------------------- Página de ingresos ---------------------------
-
+//---------------------- Página de ingresos --------------------------
 router.get('/egresos', isAuthenticated, async (req,res) => { // isAuthenticated verifica si esta logueado
 	const Egresos = await Egreso.find({user: req.user.id}).sort({ date: 'desc' });//ordenar de forma descendente
 	//el req.user.id es para buscar los productos del usuario logueado
@@ -164,9 +156,7 @@ router.get('/egresos', isAuthenticated, async (req,res) => { // isAuthenticated 
 	});
 	res.render('reportes/egresos', { EgresoSend }); // le pasa todos los datos, nodes entre corchetes es como un get
 }); // cuando visiten la página enviar el mensaje
-
 // Agregar Egreso
-
 router.post('/egresos/agregar/:id', isAuthenticated, async (req,res) => { // :id es el dato que está recibiendo
 	const formulario = req.body;
 	const errors = [] // Array que va a guardar los errores
@@ -206,15 +196,11 @@ router.post('/egresos/agregar/:id', isAuthenticated, async (req,res) => { // :id
 			res.redirect('/egresos');
 		}
 	}
-
 }); // cuando visiten la página enviar el mensaje
-
-
 router.get('/conteo/:numero', (req,res) => {
 	var contando = conteo.contar();
 	res.json({contando});
 });
-
 /*RESPUESTA DE RESPALDO AJAX
 router.get('/dolar/ajax/:buscar', isAuthenticated, (req,res) => {
 	const texto= req.params.buscar;
